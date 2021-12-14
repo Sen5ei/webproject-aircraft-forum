@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<WebProjectAircraftForum.Areas.Identity.Data.ApplicationUser> UserManager
+@inject SignInManager<WebProjectAircraftForum.Areas.Identity.Data.ApplicationUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebProjectAircraftForum</title>
+    <link rel="shortcut icon" href="~/images/navbar-logo.gif" type="image/x-icon" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="~/css/navbar.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.3.1/styles/stackoverflow-dark.css">
+</head>
+<body>
+    <div class="navbar-wrapper">
+        <nav>
+            <input type="checkbox" id="ShowMenu">
+            <label for="ShowMenu" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="navbar-content">
+                <div class="navbar-logo">
+                    <img class="navbar-logo-img" src="/images/navbar-logo.gif" alt="" />
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Aircraft Forum</a>
+                </div>
+                <ul class="navbar-links">
+                    <li><a asp-area="" asp-controller="Forum" asp-action="Index">Forums</a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li>
+                            <a asp-controller="Profile" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)" class="SettingsLink">Settings</a>
+                            <input type="checkbox" id="ShowSettings">
+                            <label for="ShowSettings">Settings</label>
+                            <ul>
+                                <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="@UserManager.GetUserId(User)">Profile</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a asp-controller="Forum" asp-action="Create">Create Forum</a></li>
+                                    <li><a asp-controller="Profile" asp-action="Index">Users List</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Contact" asp-action="Index" asp-route-id="@UserManager.GetUserId(User)">Contact</a></li>
+
+                    <partial name="_LoginPartial" />
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container container-top-padding">
+        <main class="pb-3" role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-white box-shadow">
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="footer-left">
+                    &copy; 2021 - WebProject - Aircraft Forum
+                </div>
+                <div class="footer-social-media">
+                    <a href="#"><img src="/images/social-media/facebook.png" alt="" /></a>
+                    <a href="#"><img src="/images/social-media/instagram.png" alt="" /></a>
+                    <a href="#"><img src="/images/social-media/twitter.png" alt="" /></a>
+                    <a href="#"><img src="/images/social-media/youtube.png" alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script>
+
+        function submitForm() {
+            let form = document.getElementById("logoutForm");
+            form.submit();
+        }
+
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

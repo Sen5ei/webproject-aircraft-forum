@@ -1,0 +1,91 @@
+﻿@page
+@model RegisterModel
+
+<div class="container login-container">
+
+    <div class="login-form-container">
+
+        <header>Create a new account</header>
+
+        <form class="login-form" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="login-input">
+                <input type="text" asp-for="Input.Email" required />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="login-input">
+                <input type="text" asp-for="Input.UserName" required />
+                <label asp-for="Input.UserName"></label>
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+
+            <div class="login-input">
+                <input asp-for="Input.Password" class="LoginPassword" type="password" required />
+                <span class="login-show-password">SHOW</span>
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="login-input">
+                <input asp-for="Input.ConfirmPassword" class="LoginPassword ConfPassword"  type="password" required />
+                <span class="login-show-password ConfShowPassword">SHOW</span>
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="login-btn">
+                <div class="login-btn-inner"></div>
+                <button type="submit">REGISTER</button>
+            </div>
+
+        </form>
+
+        <div class="login-signup">
+            Already a member? <a asp-area="Identity" asp-page="/Account/Login">Login now</a>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        var input = document.querySelector('.LoginPassword');
+        var show = document.querySelector('.login-show-password');
+
+        var input2 = document.querySelector('.ConfPassword');
+        var show2 = document.querySelector('.ConfShowPassword');
+
+        show.addEventListener('click', active);
+        show2.addEventListener('click', active);
+
+        function active(){
+            if (input.type === "password" && input2.type === "password")
+            {
+                input.type = "text";
+                show.style.color = "#0086ff";
+                show.textContent = "HIDE";
+
+                input2.type = "text";
+                show2.style.color = "#0086ff";
+                show2.textContent = "HIDE";
+            }
+            else
+            {
+                input.type = "password";
+                show.textContent = "SHOW";
+                show.style.color = "#165fa1";
+
+                input2.type = "password";
+                show2.textContent = "SHOW";
+                show2.style.color = "#165fa1";
+            }
+        }
+
+
+    </script>
+}

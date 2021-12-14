@@ -1,0 +1,136 @@
+﻿@model WebProjectAircraftForum.Models.Home.HomeIndexModel
+
+<div class="container">
+    <div class="row homeindex-section-header">
+
+        <div class="homeindex-section-heading">
+
+            <div class="homeindex-section-heading-Left">
+                Flying is hypnotic and all pilots are willing victims to the spell
+            </div>
+
+            <div class="homeindex-section-heading-Right">
+                <form asp-controller="Search" asp-action="Search" method="post">
+                    <input class="home-search" type="text" asp-for="SearchQuery" placeholder="Search..." />
+                </form>
+            </div>
+
+            <div class="homeindex-subheading">
+                “Once you have tasted flight, you will forever walk the earth with your eyes turned skyward, for there you have been, and there you will always long to return.”
+            </div>
+        </div>
+    </div>
+
+    <div class="row table-content">
+        <h3 id="latest-posts-heading">Latest Posts</h3>
+
+        <div class="table-list">
+
+            @foreach (var post in Model.LatestPosts)
+            {
+                <div class="table-row">
+
+                    <div class="table-row-Left">
+
+                        <div class="forum-logo-homeindex" style="background-image: url(@post.Forum.ImageUrl);"></div>
+
+                        <div class="cell-text">
+                            <div class="cell-post-title">
+                                <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                                    @post.Title
+                                </a>
+                            </div>
+
+                            <div class="cell-post-subtitle">
+                                <div class="cell-post-author">
+                                    Author: <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorId">@post.AuthorName</a> &#183;
+                                    @post.DatePosted.ToString("dd/MM/yyyy HH:mm")
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+
+                    <div class="table-row-Mid">
+                        <div class="cell-replies-count">
+                            @if (post.RepliesCount == 1)
+                            {
+                                <div>@post.RepliesCount Reply</div>
+                            }
+                            else if (post.RepliesCount == 0)
+                            {
+                                <div>No Replies</div>
+                            }
+                            else
+                            {
+                                <div>@post.RepliesCount Replies</div>
+                            }
+                        </div>
+                    </div>
+
+                    @if (post.LatestReplyAuthorId != null) 
+                    {
+                        <div class="table-row-Right">
+
+                            <div class="cell-latest-post-reply-author">
+
+                                <div class="cell-latest-post-reply-author-Text">
+                                    <div class="LatestPostReplyCreatedOn">
+                                        @Html.DisplayFor(x => post.LatestReplyCreatedOn)
+                                        @*@post.LatestReplyCreatedOn.ToString()*@
+                                    </div>
+
+                                    <div class="latest-post-reply-author-name">
+                                        <a asp-action="Detail" asp-controller="Profile" asp-route-id="@post.LatestReplyAuthorId">@post.LatestReplyAuthorName</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="latest-post-reply-author-img" style="background-image: url(@post.LatestReplyAuthorImageUrl);">
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-row-Right">
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@*Info Modal on HomeIndex load*@
+<div class="modal fade" id="modalWelcome" tabindex="-1" role="dialog" aria-labelledby="modalWelcome" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content" data-dismiss="modal">
+            <div class="modal-welcome-container">
+                <img class="modal-welcome-background" src="~/images/background/from-above-min.jpg" />
+                <div class="modal-welcome-text">
+                    <p>Welcome to my portfolio Website - Aircraft Forum v1.0</p>
+                    <p>Please visit the About section before checking the rest of the website!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            var shown = sessionStorage.getItem('shown');
+            if (shown == null) {
+                sessionStorage.setItem('shown', 1);
+
+                $('#modalWelcome').modal('toggle');
+            }
+        });
+    </script>
+}

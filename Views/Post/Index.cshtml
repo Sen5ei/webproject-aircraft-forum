@@ -1,0 +1,329 @@
+﻿@model WebProjectAircraftForum.Models.Post.PostIndexModel
+
+<div class='scroll-bar-wrapper'>
+    <div class='scroll-bar'> </div>
+</div>
+
+<div class="container">
+    <div class="row section-header">
+
+        <div class="section-heading">
+            <div class="section-heading-left">
+                @Model.Title
+            </div>
+
+            <div class="section-heading-right">
+                <div class="forum-logo-forumtopic" style="background-image: url(@Model.ForumImageUrl)"></div>
+            </div>
+        </div>
+
+        <div class="section-description">
+            <div class="section-description-left">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <p>
+                        You have to either <a asp-area="Identity" asp-page="/Account/Register">register</a>
+                        or <a asp-area="Identity" asp-page="/Account/Login">login</a> with your existing account to be able to reply to a post.
+                    </p>
+                }
+            </div>
+            <div class="section-description-right">
+                <a class="classic-button button-back-to-forum" asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.ForumId">Back to @Model.ForumName</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row postindex-post-content">
+
+        <div class="col-md-2 post-author-container">
+            <div class="post-author-image" style="background-image: url(@Model.AuthorImageUrl);"></div>
+            <div class="post-author-name">
+                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.AuthorId">
+                    @Model.AuthorName
+                </a>
+            </div>
+            @if (Model.IsAuthorAdmin)
+            {
+                <div class="is-admin">Admin</div>
+            }
+            <div class="post-author-extras">
+                <dl>
+                    <dt>
+                        Member since:
+                    </dt>
+                    <dd>
+                        @Model.AuthorMemberSince.ToShortDateString()
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        Rating:
+                    </dt>
+                    <dd>
+                        @Model.AuthorRating
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="col-md-10 post-content-container">
+            <div class="post-content-header">
+                <div class="post-content-post-date">
+                    @Model.CreatedOn
+                </div>
+            </div>
+
+            <div class="post-content-text">
+                @Html.Raw(Model.PostContent)
+            </div>
+
+            <div class="post-content-footer">
+                @if (User.Identity.Name == Model.AuthorName || User.IsInRole("Admin"))
+                {
+                    <a class="classic-button button-edit-post" data-target="#modalEditPost" onclick="toggleModalEditPost()">
+                        Edit
+                    </a>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="classic-button button-edit-post" data-target="#modal-deletePost" onclick="toggleModalDeletePost()">
+                        Delete
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="ReplyDivider" class="row"></div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row" id="PostReplyBtn-Row">
+            <a class="classic-button button-new-reply" asp-controller="PostReply" asp-action="Create" asp-route-id="@Model.Id">
+                Post Reply
+            </a>
+        </div>
+
+        <div id="ReplyDivider" class="row"></div>
+    }
+
+    @if (Model.Replies.Any())
+    {
+        foreach (var reply in Model.Replies)
+        {
+            <div class="row postindex-reply-content">
+                <div class="col-md-2 reply-author-container">
+                    <div class="post-author-image" style="background-image: url(@reply.AuthorImageUrl);"></div>
+                    <div class="post-author-name">
+                        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.AuthorId">
+                            @reply.AuthorName
+                        </a>
+                    </div>
+                    @if (reply.IsAuthorAdmin)
+                    {
+                        <div class="is-admin">Admin</div>
+                    }
+                    <div class="post-author-extras">
+                        <dl>
+                            <dt>
+                                Member since:
+                            </dt>
+                            <dd>
+                                @reply.AuthorMemberSince.ToShortDateString()
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                Rating:
+                            </dt>
+                            <dd>
+                                @reply.AuthorRating
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="col-md-10 reply-content-container">
+                    <div class="post-content-header">
+                        <div class="post-content-post-date">
+                            @reply.CreatedOn
+                        </div>
+                        <div class="back-on-top">
+                            <a href="#top"><span class="material-icons">navigation</span></a>
+                        </div>
+                    </div>
+
+                    <div class="post-content-text">
+                        @Html.Raw(reply.ReplyContent)
+                    </div>
+
+                    <div class="post-content-footer">
+                        @if (User.Identity.Name == Model.AuthorName || User.IsInRole("Admin"))
+                        {
+                            <a class="classic-button button-edit-post" data-target="#modalEditPostReply" onclick="toggleModalEditPostReply('@reply.Id')">
+                                Edit
+                            </a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="classic-button button-edit-post" data-target="#modal-deletePostReply" onclick="toggleModalDeletePostReply('@reply.Id')" >
+                                Delete
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadPostReplyPartial">
+                @* PostReplyPartial will be loaded here *@
+            </div>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="row" id="PostReplyBtn-Row">
+                <a class="classic-button button-new-reply" asp-controller="PostReply" asp-action="Create" asp-route-id="@Model.Id">
+                    Post Reply
+                </a>
+            </div>
+
+            <div id="ReplyDivider" class="row"></div>
+        }
+    }
+    else
+    {
+        <div class="no-posts">
+            <h3>There are still no replies to this post.<br /></h3>
+        </div>
+    }
+
+    @* Modal for editing a post *@
+    <div class="modal fade" id="modalEditPost" tabindex="-1" role="dialog" aria-labelledby="modalEditPost" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <div class="modal-content">
+                <div class="edit-post-form-container">
+                    <div class="edit-post-form-header">
+                        Edit Post
+                    </div>
+
+                    <form id="edit-post-form1" class="edit-post-form" asp-controller="Post" asp-action="EditPost" method="post">
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="edit-post-input">
+                            <input type="text" asp-for="Title" required readonly />
+                            <label asp-for="Title"></label>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="edit-post-textarea">
+                            <textarea rows="10" asp-for="PostContent" required></textarea>
+                            <label asp-for="PostContent"></label>
+                            <span asp-validation-for="PostContent" class="text-danger"></span>
+                        </div>
+
+                        <div class="create-post-button-row">
+                            <div class="create-post-btn">
+                                <div class="create-post-inpt">
+                                    <div class="create-post-btn-inner"></div>
+                                    <input type="submit" value="edit post" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Modal for deleting a post*@
+    <div class="modal fade" id="modal-deletePost" tabindex="-1" role="dialog" aria-labelledby="modal-deletePost" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-delete" role="document">
+            <div class="modal-content">
+                <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                    <div>
+                        Are you sure that you want to delete this post?
+                    </div>
+                    <form asp-action="DeletePost" asp-controller="Post" asp-route-id="@Model.Id" method="post">
+                        <input class="classic-button button-modal-yesno" type="submit" value="Yes"/>
+                        <a class="classic-button button-modal-yesno" data-dismiss="modal">
+                            No
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal Successfully Edited *@
+<div class="modal fade" id="ModalEditSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalEditSuccess" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" data-dismiss="modal">
+            <div class="alert alert-primary text-center" style="margin-bottom: 0px;">
+                @TempData["EditSuccess"]
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @if (@TempData["EditSuccess"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#ModalEditSuccess').modal('toggle');
+            });
+        </script>
+    }
+
+    <script>
+
+        function toggleModalEditPost() {
+            $('#modalEditPost').modal('toggle');
+        };
+
+        function toggleModalDeletePost() {
+            $('#modal-deletePost').modal('toggle');
+        };
+
+        function toggleModalEditPostReply(id) {
+            $.ajax({
+                type: "Get",
+                url: "/Post/LoadPostReplyPartial?id=" + id,
+                success: function (data) {
+                    $("#loadPostReplyPartial").html(data);
+                    $('#modalEditPostReply').modal('show');
+                },
+                error: function (data) {
+                    alert(data.statusText);
+                }
+            });
+        };
+
+        function toggleModalDeletePostReply(id) {
+            $.ajax({
+                type: "Get",
+                url: "/Post/LoadPostReplyPartial?id=" + id,
+                success: function (data) {
+                    $("#loadPostReplyPartial").html(data);
+                    $('#modal-deletePostReply').modal('show');
+                },
+                error: function (data) {
+                    alert(data.statusText);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => indicateScrollBar())
+
+        function indicateScrollBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector(".scroll-bar").style.width = `${scrolled}%`;
+
+        }
+    </script>
+}

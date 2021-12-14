@@ -1,0 +1,111 @@
+﻿@model WebProjectAircraftForum.Models.Contact.ContactIndexModel
+
+<div class="container contact-container">
+
+    <div class="contact-form-container">
+
+        <div class="contact-form-header">
+            Contact me
+        </div>
+
+        <div class="contact-form-subheader">
+            Have a question or want to work together?
+        </div>
+
+        <form id="contact-form1" class="contact-form" asp-controller="Contact" asp-action="SendMessage" method="post">
+
+            <div class="contact-form-row">
+                <div class="contact-input">
+                    <input type="text" asp-for="FirstName" required value="@ViewBag.FirstName" />
+                    <div class="input-underline"></div>
+                    <label asp-for="FirstName"></label>
+                </div>
+                <div class="contact-input">
+                    <input type="text" asp-for="LastName" required value="@ViewBag.LastName" />
+                    <div class="input-underline"></div>
+                    <label asp-for="LastName"></label>
+                </div>
+            </div>
+
+            <div class="contact-form-row">
+                <div class="contact-input">
+                    <input type="text" asp-for="UserName" required value="@ViewBag.UserName" />
+                    <div class="input-underline"></div>
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="contact-input contact-inputEmail">
+                    <input type="email" asp-for="UserEmail" placeholder=" " required value="@ViewBag.Email" />
+                    <div class="input-underline"></div>
+                    <label asp-for="UserEmail"></label>
+                </div>
+            </div>
+
+            <div class="contact-form-row">
+                <div class="contact-input">
+                    <input type="text" asp-for="Subject" required />
+                    <div class="input-underline"></div>
+                    <label>Subject</label>
+                </div>
+            </div>
+
+            <div class="contact-form-row">
+                <div class="contact-input contact-textarea">
+                    <textarea cols="30" rows="10" asp-for="Message" required></textarea>
+                    <div class="input-underline"></div>
+                    <label>Message</label>
+                </div>
+            </div>
+
+            <div class="contact-form-row contact-submit-btn">
+                <div class="contact-input">
+                    <div class="contact-btn-inner"></div>
+                    <input type="submit" value="submit" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Modal Success *@
+<div class="modal fade" id="ContactMessageSuccess" tabindex="-1" role="dialog" aria-labelledby="ContactMessageSuccess" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" data-dismiss="modal">
+            <div class="alert alert-primary text-center" style="margin-bottom: 0px;">
+                @ViewBag.ContactMessageSuccess
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal Fail *@
+<div class="modal fade" id="ContactMessageFail" tabindex="-1" role="dialog" aria-labelledby="ContactMessageFail" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" data-dismiss="modal">
+            <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                @ViewBag.ContactMessageFail
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @if (@ViewBag.ContactMessageSuccess != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#ContactMessageSuccess').modal('toggle');
+            });
+        </script>
+    }
+
+    @if (@ViewBag.ContactMessageFail != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#ContactMessageFail').modal('toggle');
+            });
+        </script>
+    }
+}

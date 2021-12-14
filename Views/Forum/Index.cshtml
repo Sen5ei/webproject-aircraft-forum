@@ -1,0 +1,107 @@
+﻿@model WebProjectAircraftForum.Models.Forum.ForumIndexModel
+
+<div class="container-fluid">
+    <div class="row section-header">
+
+        <div class="section-heading">
+            <div class="section-heading-left-big">
+                Browse Forums
+            </div>
+            <div class="section-heading-right">
+
+            </div>
+        </div>
+
+        <div class="section-description">
+            <div class="section-description-left">
+                <p>Welcome to <strong>Aircraft Forum community</strong>. We are thrilled to give you a warm welcome to this space. 
+                    Posts are categorized into separate forums by aircraft manufacturers.</p>
+                <p>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <span>You must be a <a asp-area="Identity" asp-page="/Account/Register">registered member</a> to create a new post.</span>
+                    }
+                </p>
+            </div>
+            <div class="section-description-right">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row table-content">
+
+        <div class="table-list">
+
+            @foreach (var forum in Model.ForumList)
+            {
+                <div class="table-row forumindex-table-row">
+
+                    <div class="table-row-Left">
+
+                        <div class="forum-logo-forumindex" style="background-image: url(@forum.ImageUrl);"></div>
+
+                        <div class="cell-text">
+                            <div class="cell-forum-title">
+                                <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.Id">
+                                    @forum.Title
+                                </a>
+                                @if (forum.HasRecentPost)
+                                {
+                                    <div class="label-hot">Hot!</div>
+                                }
+                            </div>
+                            <div class="cell-forum-subtitle">
+                                @forum.Description
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-row-Mid">
+                        <div class="cell-post-and-user-count">
+
+                            <div class="cell-post-count">
+                                @forum.NumberOfPosts Posts
+                            </div>
+                            <div class="cell-user-count">
+                                @forum.NumberOfUsers Users
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (forum.LatestPostAuthorId != null)
+                    {
+                        <div class="table-row-Right">
+
+                            <div class="cell-latest-post-author">
+
+                                <div class="cell-latest-post-author-Text">
+
+                                    <div class="latest-post-title">
+                                        <a asp-action="Index" asp-controller="Post" asp-route-id="@forum.LatestPostId">@forum.LatestPostTitle</a>
+                                    </div>
+                                    <div class="LatestPostCreatedOn">
+                                        @forum.LatestPostCreatedOn
+                                    </div>
+                                    <div class="latest-post-author-name">
+                                        <a asp-action="Detail" asp-controller="Profile" asp-route-id="@forum.LatestPostAuthorId">@forum.LatestPostAuthorName</a>
+                                    </div>
+                                </div>
+
+                                <div class="latest-post-author-img" style="background-image: url(@forum.LatestPostAuthorImageUrl);">
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-row-Right">
+
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

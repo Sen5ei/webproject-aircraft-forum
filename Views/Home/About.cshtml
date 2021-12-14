@@ -1,0 +1,224 @@
+﻿
+<div class="container about-container">
+
+    <div class="about-me-container">
+
+        <div class="about-me-heading">
+            About me
+        </div>
+
+        <div class="about-me-content">
+            <div class="about-me-content-Top">
+                Hi, I am Ognjen Sredic
+            </div>
+            <div class="about-me-content-Bottom">
+                a Full Stack Developer
+            </div>
+        </div>
+
+        <div class="about-me-skills">
+            <div class="skills-heading">
+                Skills:
+            </div>
+            <div class="skills-content">
+                <div class="skills-item skills-item1">
+                    <div class="skills-img" style="background-image: url('/images/about/csharp.png');"></div>
+                    <div class="skills-text">
+                        C#
+                    </div>
+                </div>
+                <div class="skills-item skills-item2">
+                    <div class="skills-img" style="background-image: url('/images/about/html.png');"></div>
+                    <div class="skills-text">
+                        HTML
+                    </div>
+                </div>
+                <div class="skills-item skills-item3">
+                    <div class="skills-img" style="background-image: url('/images/about/css.png');"></div>
+                    <div class="skills-text">
+                        CSS
+                    </div>
+                </div>
+                <div class="skills-item skills-item4">
+                    <div class="skills-img" style="background-image: url('/images/about/sql.png');"></div>
+                    <div class="skills-text">
+                        SQL
+                    </div>
+                </div>
+                <div class="skills-item skills-item5">
+                    <div class="skills-img" style="background-image: url('/images/about/javascript.png');"></div>
+                    <div class="skills-text">
+                        JavaScript
+                    </div>
+                </div>
+                <div class="skills-item skills-item6">
+                    <div class="skills-img" style="background-image: url('/images/about/bootstrap.png');"></div>
+                    <div class="skills-text">
+                        Bootstrap
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-me-tools">
+            <div class="tools-heading">
+                Tools:
+            </div>
+            <div class="tools-content">
+                <div class="tools-item tools-item1">
+                    <div class="tools-img" style="background-image: url('/images/about/vs.png');"></div>
+                    <div class="tools-text">
+                        VS
+                    </div>
+                </div>
+                <div class="tools-item tools-item2">
+                    <div class="tools-img" style="background-image: url('/images/about/vscode.png');"></div>
+                    <div class="tools-text">
+                        VS Code
+                    </div>
+                </div>
+                <div class="tools-item tools-item3">
+                    <div class="tools-img" style="background-image: url('/images/about/mssql.png');"></div>
+                    <div class="tools-text">
+                        SSMS
+                    </div>
+                </div>
+                <div class="tools-item tools-item4">
+                    <div class="tools-img" style="background-image: url('/images/about/git.png');"></div>
+                    <div class="tools-text">
+                        Git
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-website-container">
+
+        <div class="about-website-heading">
+            About this project
+        </div>
+
+        <div class="about-website-content">
+
+            <div class="about-website-content1">
+                <p>The website has been created as an ASP .NET Core 3.1 MVC Application, and it has been built from scratch. It's a fully functional forum with these features:</p>
+                <ul>
+                    <li>Separated layers: Models, Data, Services, Controllers, Views</li>
+                    <li>Customized "Individual user accounts" Authentication</li>
+                    <li>Authorization</li>
+                    <li>Both server-side and client-side validations</li>
+                    <li>CRUD operations on topics, posts and post replies</li>
+                    <li>Search functionality for the entire forum or a specific topic</li>
+                    <li>User profile (managing accounts)</li>
+                    <li>Contact page</li>
+                    <li>Styled with CSS and a bit of JS</li>
+                    <li>Responsive website</li>
+                </ul>
+                <p>The website and the SQL database have been hosted on Azure. Azure Blob Storage has been used for storing all uploaded pictures.</p>
+                <p>Some of the things that will be implemented in the near future:</p>
+                <ul>
+                    <li>Tooltips</li>
+                    <li>Paging on post pages</li>
+                    <li>User to user private messaging</li>
+                    <li>User signature</li>
+                    <li>Ability to format text and add links and images to posts and replies (for now it's text-only)</li>
+                </ul>
+                <p>
+                    As a user, after registering and logging into the website, you are able create/edit posts and reply to existing posts. You can visit your profile page, edit your information and change the profile picture.
+                    As an administrator you can create/edit forums(topics), create/edit/delete your own posts, edit/delete users' posts and post replies, browse the list of all users and edit their profiles.
+                </p>
+                <div class="github-link">
+                    GitHub Repository:
+                    <a href="https://github.com/Sen5ei/webproject-aircraft-forum" target=”_blank”>
+                        <img src="~/images/about/github-link.png" />
+                    </a>
+                </div>
+                    <p>
+                        Please note that, because of secutity reasons, some information (mostly passwords) have been removed from the code:
+                    </p>
+                <div>
+                    <code>ContactController.cs</code>
+                    <pre class="about-pre">
+<!---------------------><code class="about-code">
+<!--------------------->    client.Credentials = new NetworkCredential("{your_gmail}", "{your_password}");
+                    </code>
+                    </pre>
+
+                    <code>appsettings.Production.json</code>
+                    <pre class="about-pre">
+<!----THESE COMMENTS---><code class="about-code">
+<!-----ARE HERE TO----->    {
+<!--------INDENT------->        "ConnectionStrings": {
+<!------<PRE> TAG------>        "WebProjectAircraftForumDbContextConnection": "Server=tcp:aircraftforum.database.windows.net,1433;
+<!------CONTENTS------->                                                       Initial Catalog=WebProjectAircraftForum.Production;
+<!--------------------->                                                       Persist Security Info=False;
+<!--------------------->                                                       User ID={USERNAME};Password={PASSWORD};
+<!--------------------->                                                       MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+<!--------------------->        }
+<!--------------------->    }
+                        </code>
+                    </pre>
+
+                    <code>DataSeeder.cs</code>
+                    <pre class="about-pre">
+<!---------------------><code class="about-code">
+<!--------------------->    var hasher = new PasswordHasher&lt;ApplicationUser&gt;();
+<!--------------------->    var hashedPassword = hasher.HashPassword(user, "{admin_password}");
+<!--------------------->    user.PasswordHash = hashedPassword;
+                        </code>
+                    </pre>
+					<code>storageSettings.json</code>
+                    <pre class="about-pre">
+<!---------------------><code class="about-code">
+<!--------------------->    {
+<!--------------------->        "ConnectionStrings": {
+<!--------------------->        "AzureStorageAccount": "DefaultEndpointsProtocol=https;AccountName=aircraftforum;AccountKey={ACCESSKEY};EndpointSuffix=core.windows.net"
+<!--------------------->        }
+<!--------------------->    }
+<!--------------------->
+                        </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="about-website-content2">
+                <h4>Database UML diagram</h4>
+                <div class="database-diagram">
+                    <img src="~/images/about/database-diagram1.0.png" />
+                </div>
+                <p>This is the diagram that corresponds to the current version of the website. Since I plan to add some other features, the diagram here will be updated in a timely manner. </p>
+            </div>
+
+            <div class="about-website-content3">
+                <h4></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        window.addEventListener("scroll", onScroll);
+
+        function onScroll()
+        {
+            elementVisible(document.querySelector(".about-website-container"));
+        }
+
+        function elementVisible(el) {
+            let top = el.offsetTop;
+            let height = el.offsetHeight;
+            let bottom = top + height;
+
+            let IsOverBottom = (top) > (window.pageYOffset + window.innerHeight);
+            let IsBeforeTop = (bottom) < window.pageYOffset;
+
+            if (!IsOverBottom && !IsBeforeTop) {
+                el.classList.add("show-about");
+            }
+        }
+    </script>
+}

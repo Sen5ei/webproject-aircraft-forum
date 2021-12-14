@@ -1,0 +1,265 @@
+﻿/*------------------------------------NAVBAR------------------------------------*/
+.navbar-wrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.navbar-wrapper {
+    background: #fff;
+    position: fixed;
+    width: 100%;
+    font-family: 'Roboto';
+    text-decoration: none;
+    z-index: 1020;
+    border-bottom: 2px solid #000;
+}
+
+.navbar-wrapper nav {
+    position: relative;
+    display: flex;
+    max-width: 1110px;
+    margin: 0 auto;
+    height: 70px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links {
+    margin-left: 40px;
+    display: flex;
+}
+
+.navbar-content {
+    width: 100%;
+}
+
+.navbar-links {
+    flex: 1;
+}
+
+.navbar-links li:nth-last-child(2) {
+    margin-left: auto;
+}
+
+.logout-button-link {
+    cursor: pointer;
+}
+
+.logout-button {
+    display: none;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.navbar-logo a {
+    color: #000;
+    font-size: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+.navbar-logo-img {
+    width: 35px;
+    height: 35px;
+    box-shadow: 0 0 10px #000000;
+    border-radius: 4px;
+}
+
+.navbar-links li {
+    list-style: none;
+    line-height: 70px;
+}
+
+.navbar-links li a,
+.navbar-links li label {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 9px 17px;
+    border-radius: 0px;
+    transition: background 0.6s ease-out,
+                color 0.6s ease-out;
+    text-decoration: none;
+}
+
+.navbar-links li label {
+    display: none;
+}
+
+.navbar-links li a:hover,
+.navbar-links li label:hover {
+    background: #aaaaaa;
+    color: #fff;
+}
+
+.menu-icon {
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 70px;
+    width: 70px;
+    text-align: center;
+    display: none;
+}
+
+.navbar-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+/* Dropdown Menu code start */
+.navbar-links ul {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    top: 80px;
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.navbar-links li:hover > ul {
+    top: 70px;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.4s ease;
+}
+
+.navbar-links ul li a {
+    display: block;
+    width: 100%;
+    line-height: 30px;
+    border-radius: 0px !important;
+}
+
+.navbar-links ul ul {
+    position: absolute;
+    top: 0;
+    right: calc(-100% + 8px);
+}
+
+.navbar-links ul li {
+    position: relative;
+}
+
+.navbar-links ul li:hover ul {
+    top: 0;
+}
+
+/* Responsive code start */
+@media screen and (max-width: 1200px) {
+    .navbar-wrapper nav {
+        max-width: 960px;
+        padding: 0 20px;
+    }
+
+    .navbar-links {
+        margin-left: 20px;
+    }
+
+    .navbar-links li a {
+        padding: 6px 10px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .navbar-wrapper nav {
+        max-width: 720px;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    #ShowMenu:checked ~ .menu-icon i::before {
+        content: "\f00d";
+    }
+
+    .navbar-links {
+        display: block;
+        position: fixed;
+        background: rgba(255, 255, 255, 0.9);
+        height: 100%;
+        width: 100%;
+        top: 70px;
+        left: -100%;
+        margin-left: 0;
+        max-width: 350px;
+        overflow-y: auto;
+        padding-bottom: 100px;
+        transition: all 0.4s ease-out;
+    }
+
+    #ShowMenu:checked ~ .navbar-content .navbar-links {
+        left: 0%;
+    }
+
+    .navbar-links li {
+        margin: 15px 20px;
+        margin-left: 20px !important;
+    }
+
+    .navbar-links li a,
+    .navbar-links li label {
+        line-height: 40px;
+        font-size: 20px;
+        display: block;
+        padding: 8px 18px;
+        cursor: pointer;
+    }
+
+    .navbar-links li a.SettingsLink {
+        display: none;
+    }
+
+    /* dropdown responsive code start */
+    .navbar-links ul,
+    .navbar-links ul ul {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        background: none;
+        max-height: 0px;
+        overflow: hidden;
+    }
+
+    .navbar-links #ShowSettings:checked ~ ul {
+        max-height: 100vh;
+    }
+
+    .navbar-links ul li {
+        margin: 7px 20px;
+    }
+
+    .navbar-links ul li a {
+        font-size: 18px;
+        line-height: 30px;
+        border-radius: 0px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar-wrapper nav {
+        max-width: 540px;
+    }
+
+    @media screen and (max-width: 400px) {
+        .navbar-wrapper nav {
+            padding: 0 10px;
+        }
+
+        .navbar-content .navbar-logo a {
+            font-size: 27px;
+        }
+    }
+}

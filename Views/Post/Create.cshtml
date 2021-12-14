@@ -1,0 +1,94 @@
+﻿@model WebProjectAircraftForum.Models.Post.NewPostModel
+
+<div class="container">
+    <div class="row section-header">
+
+        <div class="section-heading">
+            <div class="section-heading-left-big">
+                New Post | @Model.ForumName
+            </div>
+            <div class="section-heading-right">
+                <div class="forum-logo-forumtopic" style="background-image: url(@Model.ForumImageUrl)"></div>
+            </div>
+        </div>
+
+        <div class="section-description">
+            <div class="section-description-left">
+
+            </div>
+            <div class="section-description-right">
+                <a class="classic-button button-back-to-forum" asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.ForumId">Back to @Model.ForumName</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="create-post-section">
+            <div class="create-post-author-block">
+                <div class="create-post-author-block-Left">
+                    <div class="post-author-image" style="background-image: url(@Model.AuthorImageUrl);"></div>
+                    <div class="post-author-name">
+                        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.AuthorId">
+                            @Model.AuthorName
+                        </a>
+                    </div>
+                </div>
+                <div class="create-post-author-block-Right">
+                    @if (Model.IsAuthorAdmin)
+                    {
+                        <div class="is-admin">Admin</div>
+                    }
+                    <div class="post-author-extras">
+                        <dl>
+                            <dt>
+                                Member since:
+                            </dt>
+                            <dd>
+                                @Model.AuthorMemberSince.ToShortDateString()
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                Rating:
+                            </dt>
+                            <dd>
+                                @Model.AuthorRating
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-post-form-container">
+
+                <form class="create-post-form" id="CreatePost-form" asp-action="Create" asp-controller="Post" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input asp-for="ForumId" type="hidden" />
+                    @*<input asp-for="AuthorId" type="hidden" />
+                    <input asp-for="ForumName" type="hidden" />*@
+
+                    <div class="create-post-input">
+                        <input type="text" asp-for="Title" required />
+                        <label asp-for="Title"></label>
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="create-post-textarea">
+                        <textarea rows="10" asp-for="Content" required></textarea>
+                        <label asp-for="Content"></label>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="create-post-button-row">
+                        <div class="create-post-btn">
+                            <div class="create-post-inpt">
+                                <div class="create-post-btn-inner"></div>
+                                <input type="submit" value="submit post"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

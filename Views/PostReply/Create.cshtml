@@ -1,0 +1,139 @@
+﻿@model WebProjectAircraftForum.Models.PostReply.PostReplyModel
+
+<div class="container">
+
+    <div class="row section-header">
+
+        <div class="section-heading">
+            <div class="section-heading-left">
+                @Model.PostTitle
+            </div>
+
+            <div class="section-heading-right">
+                <div class="forum-logo-forumtopic" style="background-image: url(@Model.ForumImageUrl)"></div>
+            </div>
+        </div>
+
+        <div class="section-description">
+            <div class="section-description-left">
+
+            </div>
+            <div class="section-description-right">
+                <a class="classic-button button-back-to-forum" asp-controller="Post" asp-action="Index" asp-route-id="@Model.PostId">Back to Post</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row postindex-post-content">
+        <div class="col-md-2 post-author-container">
+            <div class="post-author-image" style="background-image: url(@Model.PostAuthorImageUrl);"></div>
+            <div class="post-author-name">
+                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.PostAuthorId">
+                    @Model.PostAuthorName
+                </a>
+            </div>
+            @if (Model.IsPostAuthorAdmin)
+            {
+                <div class="is-admin">Admin</div>
+            }
+            <div class="post-author-extras">
+                <dl>
+                    <dt>
+                        Member since:
+                    </dt>
+                    <dd>
+                        @Model.PostAuthorMemberSince.ToShortDateString()
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        Rating:
+                    </dt>
+                    <dd>
+                        @Model.PostAuthorRating
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-md-10 post-content-container">
+            <div class="post-content-header">
+                <div class="post-content-post-date">
+                    @Model.PostCreatedOn
+                </div>
+            </div>
+
+            <div class="post-content-text">
+                @Html.Raw(Model.PostContent)
+            </div>
+        </div>
+    </div>
+
+    <div id="ReplyDivider" class="row"></div>
+
+    <div class="row">
+        <div class="create-post-section">
+            <div class="AuthorBlock-Reply">
+                <div class="create-post-author-block">
+                    <div class="create-post-author-block-Left">
+                        <div class="post-author-image" style="background-image: url(@Model.AuthorImageUrl);"></div>
+                        <div class="post-author-name">
+                            <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.AuthorId">
+                                @Model.AuthorName
+                            </a>
+                        </div>
+                    </div>
+                    <div class="create-post-author-block-Right">
+                        @if (Model.IsAuthorAdmin)
+                        {
+                            <div class="is-admin">Admin</div>
+                        }
+                        <div class="post-author-extras">
+                            <dl>
+                                <dt>
+                                    Member since:
+                                </dt>
+                                <dd>
+                                    @Model.AuthorMemberSince.ToShortDateString()
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>
+                                    Rating:
+                                </dt>
+                                <dd>
+                                    @Model.AuthorRating
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-post-reply-form-container">
+
+                <form class="create-post-reply-form" id="CreatePostReply-form" asp-action="Create" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input asp-for="AuthorId" type="hidden" />
+                    <input asp-for="ForumId" type="hidden" />
+                    <input asp-for="PostId" type="hidden" />
+
+                    <div class="create-post-reply-textarea">
+                        <textarea rows="10" asp-for="ReplyContent" required></textarea>
+                        <label asp-for="ReplyContent"></label>
+                        <span asp-validation-for="ReplyContent" class="text-danger"></span>
+                    </div>
+
+                    <div class="create-post-button-row">
+                        <div class="create-post-btn">
+                            <div class="create-post-inpt">
+                                <div class="create-post-btn-inner"></div>
+                                <input type="submit" value="submit reply"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

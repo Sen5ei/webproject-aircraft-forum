@@ -1,0 +1,98 @@
+﻿@model WebProjectAircraftForum.Models.Forum.EditForumModel
+
+<div class="container forumcreate-container">
+
+    <div class="row forumcreate-form-container">
+
+        <div class="forumcreate-heading">
+            Edit forum
+        </div>
+
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+            <div class="col-md-4">
+
+                <div class="forumcreate-image-wrapper">
+                    <div id="forumcreate-imagePreview" class="forumcreate-image" style="background-image: url(@Model.ImageUrl)" onclick="changeImage()"></div>
+                    <input id="uploadForumImgFile" asp-for="ImageUpload" type="file" accept=".jpg,.jpeg,.png,.gif" style="display: none" />
+                </div>
+
+                <div class="forumcreate-image-text">Click above to change image</div>
+
+                <div id="img-size-restriction"></div>
+            </div>
+
+            <div class="col-md-8 forumcreate-info-wrapper">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="forumcreate-form-row">
+                    <div class="forumcreate-input">
+                        <input type="text" asp-for="Title" required />
+                        <div class="input-underline"></div>
+                        <label>Title</label>
+                        <span class="text-danger" asp-validation-for="Title"></span>
+                    </div>
+                </div>
+
+                <div class="forumcreate-form-row">
+                    <div class="forumcreate-input forumcreate-textarea">
+                        <textarea cols="30" rows="10" asp-for="Description" required></textarea>
+                        <div class="input-underline"></div>
+                        <label>Description</label>
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>
+                </div>
+
+                <div class="forumcreate-form-row forumcreate-submit-btn">
+                    <div class="forumcreate-input">
+                        <div class="forumcreate-btn-inner"></div>
+                        <input type="submit" value="edit forum" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+
+        function changeImage() {
+            document.getElementById("uploadForumImgFile").click();
+        };
+
+        $("#uploadForumImgFile").change(function () {
+            $("#forum-img-size-restriction").html('');
+
+            if (typeof (FileReader) != "undefined") {
+
+                var preview = $("#forumcreate-imagePreview");
+                preview.html("");
+
+                $($(this)[0].files).each(function () {
+
+                    var file = $(this);
+
+                    if (file[0].size > 102400) {
+                        $("#img-size-restriction").html('Image can\'t be larger than 100kb');
+                        return;
+                    }
+
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+
+                        preview.attr("style", "background-image: url(" + e.target.result + ");");
+                    }
+
+                    reader.readAsDataURL(file[0]);
+                });
+            }
+            else {
+                alert("Something went wrong.");
+            }
+        });
+    </script>
+}

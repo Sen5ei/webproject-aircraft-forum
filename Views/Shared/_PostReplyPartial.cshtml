@@ -1,0 +1,52 @@
+﻿@model WebProjectAircraftForum.Models.PostReply.PostReplyModel;
+
+
+<div class="modal fade" id="modalEditPostReply" tabindex="-1" role="dialog" aria-labelledby="modalEditPostReply" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="modal-content">
+            <div class="edit-post-form-container">
+                <div class="edit-post-form-header">
+                    Edit Post Reply
+                </div>
+
+                <form id="edit-post-form1" class="edit-post-form" asp-controller="Post" asp-action="EditReply" method="post">
+                    <input asp-for="@Model.Id" type="hidden" />
+
+                    <div class="edit-post-textarea">
+                        <textarea rows="10" asp-for="@Model.ReplyContent" required></textarea>
+                        <label asp-for="@Model.ReplyContent"></label>
+                        <span asp-validation-for="@Model.ReplyContent" class="text-danger"></span>
+                    </div>
+
+                    <div class="create-post-button-row">
+                        <div class="create-post-btn">
+                            <div class="create-post-inpt">
+                                <div class="create-post-btn-inner"></div>
+                                <input type="submit" value="edit reply" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-deletePostReply" tabindex="-1" role="dialog" aria-labelledby="modal-deletePostReply" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-delete" role="document">
+        <div class="modal-content">
+            <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                <div>
+                    Are you sure that you want to delete this post reply?
+                </div>
+                <form asp-action="DeleteReply" asp-controller="Post" asp-route-id="@Model.Id" method="post">
+                    <input class="classic-button button-modal-yesno" type="submit" value="Yes" />
+                    <a class="classic-button button-modal-yesno" data-dismiss="modal">
+                        No
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

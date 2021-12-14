@@ -1,0 +1,133 @@
+﻿@model WebProjectAircraftForum.Models.Search.SearchResultModel
+
+<div class="container">
+
+    <div class="row section-header">
+
+        <div class="section-heading">
+            <div class="section-heading-left">
+                Search results for "@Model.SearchQuery"
+            </div>
+            <div class="section-heading-right">
+
+            </div>
+
+            <form id="ForumSearch" asp-controller="Search" asp-action="Search" method="post">
+                <input class="forum-search-bar" asp-for="SearchQuery" type="text" placeholder="Search..." onfocus="clearThis(this)" />
+                <button class="classic-button button-forum-search" type="submit">
+                    <span class="material-icons">search</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="section-description">
+            <div class="section-description-left">
+
+            </div>
+            <div class="section-description-right">
+                <a class="classic-button button-new-post" asp-controller="Home" asp-action="Index">
+                    Back to Home Page
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row table-content">
+
+        @if (!Model.EmptySearchResults)
+        {
+            <div class="table-list">
+
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="table-row">
+
+                        <div class="table-row-Left">
+
+                            <div class="cell-text">
+                                <div class="cell-post-title">
+                                    <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                                        @post.Title
+                                    </a>
+                                </div>
+
+                                <div class="cell-post-subtitle">
+                                    <div class="cell-post-author">
+                                        Author: <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorId">@post.AuthorName</a> &#183;
+                                        @post.DatePosted.ToString("dd/MM/yyyy HH:mm")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-row-Mid">
+                            <div class="cell-replies-count">
+                                @if (post.RepliesCount == 1)
+                                {
+                                    <div>@post.RepliesCount Reply</div>
+                                }
+                                else if (post.RepliesCount == 0)
+                                {
+                                    <div>No Replies</div>
+                                }
+                                else
+                                {
+                                    <div>@post.RepliesCount Replies</div>
+                                }
+                            </div>
+                        </div>
+
+                        @if (post.LatestReplyAuthorId != null)
+                        {
+                            <div class="table-row-Right">
+
+                                <div class="cell-latest-post-reply-author">
+
+                                    <div class="cell-latest-post-reply-author-Text">
+                                        <div class="LatestPostReplyCreatedOn">
+                                            @Html.DisplayFor(x => post.LatestReplyCreatedOn)
+                                            @*@post.LatestReplyCreatedOn.ToString()*@
+                                        </div>
+
+                                        <div class="latest-post-reply-author-name">
+                                            <a asp-action="Detail" asp-controller="Profile" asp-route-id="@post.LatestReplyAuthorId">@post.LatestReplyAuthorName</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="latest-post-reply-author-img" style="background-image: url(@post.LatestReplyAuthorImageUrl);">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="table-row-Right">
+
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-posts">
+                <span class="material-icons md-72">question_answer</span>
+                <h3>
+                    No search results found for "@Model.SearchQuery" <br />
+                </h3>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+
+    </script>
+
+}

@@ -1,0 +1,44 @@
+﻿@model WebProjectAircraftForum.Models.AppUser.ProfileListingModel
+
+<div class="container">
+    <div class="row profileindex-header">
+        <div class="profileindex-heading">
+            Browse Users
+        </div>
+    </div>
+    <div class="row profileindex-table-content">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Member Since</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var profile in Model.Profiles)
+                {
+                <tr>
+                    <td>
+                        <div class="post-author-image" style="background-image: url(@profile.ProfileImageUrl)"></div>
+                    </td>
+                    <td>
+                        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@profile.UserId">@profile.UserName</a>
+                    </td>
+                    <td>
+                        @profile.Email
+                    </td>
+                    <td>
+                        @profile.MemberSince
+                    </td>
+                    <td>
+                        @profile.UserRating
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
