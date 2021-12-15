@@ -17,7 +17,7 @@ The SQL database has been hosted on Azure. Azure Blob Storage has been used for 
 ## Database UML diagram
 
 <div style="text-align: center;">
-    <img width="500" height="500" src="./screenshots/database-diagram1.0.png">
+    <img width="500" height="500" src="./Screenshots/database-diagram1.0.png">
 </div>
 
 ## Screenshots
