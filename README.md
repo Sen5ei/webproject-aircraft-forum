@@ -22,7 +22,26 @@ The SQL database has been hosted on Azure. Azure Blob Storage has been used for 
 
 ## Screenshots
 
-
+<div>
+	<img width="350" height="220" src="./Screenshots/screenshot1.png">
+	<img width="350" height="220" src="./Screenshots/screenshot2.png">
+</div>
+<div>
+	<img width="350" height="220" src="./Screenshots/screenshot3.png">
+	<img width="350" height="220" src="./Screenshots/screenshot4.png">
+</div>
+<div>
+	<img width="350" height="220" src="./Screenshots/screenshot5.png">
+	<img width="350" height="220" src="./Screenshots/screenshot6.png">
+</div>
+<div>
+	<img width="350" height="220" src="./Screenshots/screenshot7.png">
+	<img width="350" height="220" src="./Screenshots/screenshot8.png">
+</div>
+<div>
+	<img width="350" height="220" src="./Screenshots/screenshot9.png">
+	<img width="350" height="220" src="./Screenshots/screenshot10.png">
+</div>
 
 Some of the things that will be implemented in the near future:
  - Tooltips
