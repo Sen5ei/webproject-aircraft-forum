@@ -207,6 +207,9 @@
         };
 
         $("#uploadFile").change(function () {
+		
+			$("#img-size-restriction").html('');
+		
             if (typeof (FileReader) != "undefined") {
 
                 var preview = $("#user-profile-imagePreview");

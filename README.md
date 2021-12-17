@@ -43,6 +43,9 @@ The SQL database has been hosted on Azure. Azure Blob Storage has been used for 
 	<img width="350" height="220" src="./Screenshots/screenshot10.png">
 </div>
 
+## Demo Video
+[![Watch the video](https://i9.ytimg.com/vi/RerJxbaNOOo/mq2.jpg?sqp=CJio9I0G&rs=AOn4CLBr7cMY9Zi0HSive2R7H6_qti6Kfw)](https://youtu.be/RerJxbaNOOo)
+
 Some of the things that will be implemented in the near future:
  - Tooltips
  - Paging on post pages

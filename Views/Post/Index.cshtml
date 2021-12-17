@@ -158,7 +158,7 @@
                     </div>
 
                     <div class="post-content-footer">
-                        @if (User.Identity.Name == Model.AuthorName || User.IsInRole("Admin"))
+                        @if (User.Identity.Name == reply.AuthorName || User.IsInRole("Admin"))
                         {
                             <a class="classic-button button-edit-post" data-target="#modalEditPostReply" onclick="toggleModalEditPostReply('@reply.Id')">
                                 Edit

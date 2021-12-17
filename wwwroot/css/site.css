@@ -100,6 +100,12 @@ input:-webkit-autofill:focus {
 
 }
 
+@media (max-width: 534px) {
+    .footer-left, .footer-social-media {
+        margin: auto;
+    }
+}
+
 .footer-social-media a {
     display: flex;
     align-items: center;
@@ -1464,8 +1470,14 @@ input:-webkit-autofill:focus {
     padding: 15px 12px 15px 12px;
 }
 
-.user-profile-image-wrapper{
+.user-profile-image-wrapper {
     padding:20px 0 0 0;
+}
+
+@media (max-width: 768px) {
+    .user-profile-image-wrapper {
+        padding-bottom: 20px;
+    }
 }
 
 .user-profile-image {
